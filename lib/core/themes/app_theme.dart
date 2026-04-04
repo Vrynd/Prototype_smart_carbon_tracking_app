@@ -24,7 +24,7 @@ class MyTheme {
 
   static ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF63A002),
+      seedColor: const Color(0xFF93801D),
       brightness: Brightness.light,
     ),
     textTheme: _textTheme,
@@ -33,7 +33,7 @@ class MyTheme {
 
   static ThemeData darkTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF63A002),
+      seedColor: const Color(0xFF93801D),
       brightness: Brightness.dark,
     ),
     textTheme: _textTheme,

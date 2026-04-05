@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 import 'package:smart_carbon_tracking/features/navigation/controllers/bottom_bar_controller.dart';
+import 'package:smart_carbon_tracking/features/scan/controllers/scan_controller.dart';
 import 'package:smart_carbon_tracking/features/navigation/presentation/screens/navigation_screen.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => BottomBarController()),
+      ChangeNotifierProvider(create: (_) => ScanController()),
     ],
     child: const MyApp(),
   ));

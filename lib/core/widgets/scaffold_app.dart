@@ -8,6 +8,7 @@ class ScaffoldApp extends StatelessWidget {
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
 
   const ScaffoldApp({
     super.key,
@@ -17,6 +18,7 @@ class ScaffoldApp extends StatelessWidget {
     this.backgroundColor,
     this.bottomNavigationBar,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
   });
 
   void _sytemUIOverlay() {
@@ -44,6 +46,7 @@ class ScaffoldApp extends StatelessWidget {
       appBar: appBar,
       body: body,
       floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       bottomNavigationBar: bottomNavigationBar,
     );
   }

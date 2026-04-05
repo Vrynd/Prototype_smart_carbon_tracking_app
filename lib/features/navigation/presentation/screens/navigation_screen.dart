@@ -8,6 +8,7 @@ import 'package:smart_carbon_tracking/features/home/presentation/screens/home_sc
 import 'package:smart_carbon_tracking/features/navigation/controllers/bottom_bar_controller.dart';
 import 'package:smart_carbon_tracking/features/navigation/presentation/widgets/placeholder_nav.dart';
 import 'package:smart_carbon_tracking/features/scan/presentation/screens/scan_screen.dart';
+import 'package:smart_carbon_tracking/features/settings/presentation/screens/setting_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -37,7 +38,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               const HomeScreen(),
               const PlaceholderNav(title: 'Statistic'),
               const PlaceholderNav(title: 'History'),
-              const PlaceholderNav(title: 'Profile'),
+              const SettingScreen(),
             ],
           ),
           floatingActionButton: Container(

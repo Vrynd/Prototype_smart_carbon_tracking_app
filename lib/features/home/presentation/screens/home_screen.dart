@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
         ),
         child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

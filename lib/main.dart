@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/screens/home_screen.dart';
+import 'package:smart_carbon_tracking/features/navigation/controllers/bottom_bar_controller.dart';
+import 'package:smart_carbon_tracking/features/navigation/presentation/screens/navigation_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => BottomBarController()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const HomeScreen(),
+      home: const NavigationScreen(),
     );
   }
 }

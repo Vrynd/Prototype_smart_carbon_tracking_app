@@ -24,71 +24,81 @@ class SettingsAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: context.colors.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        children: [
-          // Checklist Konfirmasi menggunakan Switch
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              safetyTitle,
-              style: context.text.titleSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-              safetySubtitle,
-              style: context.text.bodySmall?.copyWith(
-                color: context.colors.onSurfaceVariant,
-              ),
-            ),
-            trailing: Switch(
-              value: isConfirmed,
-              onChanged: onConfirmedChanged,
-              activeThumbColor: context.colors.primary,
-            ),
-          ),
-
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: DashedDivider(),
-          ),
-
-          AppSpacing.vGap16,
-
-          // Tombol Aksi
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: isConfirmed ? onPressed : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.colors.primary,
-                foregroundColor: context.colors.onPrimary,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                disabledBackgroundColor: context.colors.surfaceContainerHighest,
-              ),
-              child: Text(
-                buttonLabel,
-                style: context.text.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: isConfirmed
-                      ? context.colors.onPrimary
-                      : context.colors.onSurfaceVariant.withValues(
-                          alpha: 0.5,
-                        ),
-                ),
-              ),
-            ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+        boxShadow: [
+          BoxShadow(
+            color: context.colors.shadow.withValues(alpha: 0.05),
+            blurRadius: 15,
+            offset: const Offset(0, -5),
           ),
         ],
+      ),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Checklist Konfirmasi menggunakan Switch
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                safetyTitle,
+                style: context.text.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                safetySubtitle,
+                style: context.text.bodySmall?.copyWith(
+                  color: context.colors.onSurfaceVariant,
+                ),
+              ),
+              trailing: Switch(
+                value: isConfirmed,
+                onChanged: onConfirmedChanged,
+                activeThumbColor: context.colors.primary,
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 4),
+              child: DashedDivider(),
+            ),
+
+            AppSpacing.vGap16,
+
+            // Tombol Aksi
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: isConfirmed ? onPressed : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: context.colors.primary,
+                  foregroundColor: context.colors.onPrimary,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  disabledBackgroundColor: context.colors.surfaceContainerHighest,
+                ),
+                child: Text(
+                  buttonLabel,
+                  style: context.text.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isConfirmed
+                        ? context.colors.onPrimary
+                        : context.colors.onSurfaceVariant.withValues(
+                            alpha: 0.5,
+                          ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
+import 'package:smart_carbon_tracking/core/widgets/app_loading.dart';
 import 'package:smart_carbon_tracking/core/widgets/header_app.dart';
 import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
 import 'package:smart_carbon_tracking/features/settings/presentation/widgets/settings_action.dart';
@@ -16,6 +17,39 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _isConfirmed = false;
+  String _newPassword = '';
+
+  Future<void> _handleUpdatePassword() async {
+    AppLoading.show(context, message: 'Updating your password...');
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
+    AppLoading.hide(context);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(
+              Icons.check_circle_rounded,
+              color: context.colors.surfaceContainerHighest,
+              size: 20,
+            ),
+            AppSpacing.hGap12,
+            const Text('Password updated successfully!'),
+          ],
+        ),
+        backgroundColor: context.colors.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        margin: const EdgeInsets.all(16),
+      ),
+    );
+
+    // 5. Kembali ke halaman sebelumnya
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         variant: HeaderVariant.detail,
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
         physics: const BouncingScrollPhysics(),
         children: [
           const HeaderInfo(
@@ -39,106 +73,29 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           AppSpacing.vGap16,
 
           ChangePasswordForm(
-            children: [
-              Text(
-                'Current Password',
-                style: context.text.labelLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.onSurface,
-                ),
-              ),
-              AppSpacing.vGap8,
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter current password',
-                  prefixIcon: const Icon(Icons.lock_outline_rounded, size: 20),
-                  suffixIcon: const Icon(
-                    Icons.visibility_off_outlined,
-                    size: 20,
-                  ),
-                  filled: true,
-                  fillColor: context.colors.surfaceContainerLow,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              AppSpacing.vGap20,
-              Text(
-                'New Password',
-                style: context.text.labelLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.onSurface,
-                ),
-              ),
-              AppSpacing.vGap8,
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter new password',
-                  prefixIcon: const Icon(Icons.vpn_key_outlined, size: 20),
-                  suffixIcon: const Icon(
-                    Icons.visibility_off_outlined,
-                    size: 20,
-                  ),
-                  filled: true,
-                  fillColor: context.colors.surfaceContainerLow,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              AppSpacing.vGap20,
-
-              Text(
-                'Confirm New Password',
-                style: context.text.labelLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.colors.onSurface,
-                ),
-              ),
-              AppSpacing.vGap8,
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Retype new password',
-                  prefixIcon: const Icon(Icons.shield_outlined, size: 20),
-                  suffixIcon: const Icon(
-                    Icons.visibility_off_outlined,
-                    size: 20,
-                  ),
-                  filled: true,
-                  fillColor: context.colors.surfaceContainerLow,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          AppSpacing.vGap16,
-
-          SettingsAction(
-            safetyTitle: 'Safety Confirmation',
-            safetySubtitle:
-                'I understand the consequences of forgetting my new password.',
-            buttonLabel: 'Update Password',
-            isConfirmed: _isConfirmed,
-            onConfirmedChanged: (value) {
-              setState(() {
-                _isConfirmed = value;
-              });
-            },
-            onPressed: () {
-              debugPrint('Password Update Pressed!');
+            onNewPasswordChanged: (value) {
+              setState(() => _newPassword = value);
             },
           ),
+
           AppSpacing.vGap32,
         ],
+      ),
+      bottomNavigationBar: SettingsAction(
+        safetyTitle: 'Safety Confirmation',
+        safetySubtitle:
+            'I understand the consequences of forgetting my new password.',
+        buttonLabel: 'Update Password',
+        isConfirmed: _isConfirmed,
+        onConfirmedChanged: (value) {
+          setState(() {
+            _isConfirmed = value;
+          });
+        },
+        // Tombol hanya aktif jika dikonfirmasi DAN password baru tidak kosong
+        onPressed: (_isConfirmed && _newPassword.isNotEmpty)
+            ? _handleUpdatePassword
+            : null,
       ),
     );
   }

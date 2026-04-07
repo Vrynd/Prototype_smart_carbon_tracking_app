@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
@@ -7,7 +8,6 @@ import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
 import 'package:smart_carbon_tracking/features/home/presentation/screens/home_screen.dart';
 import 'package:smart_carbon_tracking/features/navigation/controllers/bottom_bar_controller.dart';
 import 'package:smart_carbon_tracking/features/navigation/presentation/widgets/placeholder_nav.dart';
-import 'package:smart_carbon_tracking/features/scan/presentation/screens/scan_screen.dart';
 import 'package:smart_carbon_tracking/features/settings/presentation/screens/setting_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -56,10 +56,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             ),
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ScanScreen()),
-                );
+                context.push('/scan');
               },
               backgroundColor: color.primary,
               elevation: 0,

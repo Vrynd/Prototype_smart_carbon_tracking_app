@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
@@ -184,6 +185,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   icon: HugeIcons.strokeRoundedPasswordValidation,
                   title: 'Change Password',
                   iconColor: Colors.orange,
+                  onTap: () {
+                    context.push('/settings/change-password');
+                  },
                 ),
                 SettingTile(
                   icon: HugeIcons.strokeRoundedShield01,

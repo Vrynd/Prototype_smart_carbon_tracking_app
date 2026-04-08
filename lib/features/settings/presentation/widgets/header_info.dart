@@ -83,7 +83,7 @@ class HeaderInfo extends StatelessWidget {
 
   Widget _buildCentered(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: backgroundColor ??
             context.colors.surfaceContainerLowest.withValues(alpha: 0.8),
@@ -109,7 +109,7 @@ class HeaderInfo extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: bgColor.withValues(alpha: 0.2),
@@ -122,7 +122,7 @@ class HeaderInfo extends StatelessWidget {
         children: [
           Center(
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: iconBgColor ?? onBgColor.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
@@ -183,7 +183,7 @@ class HeaderInfo extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

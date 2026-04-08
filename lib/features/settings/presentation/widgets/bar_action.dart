@@ -3,7 +3,7 @@ import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 import 'package:smart_carbon_tracking/core/widgets/dashed_divider.dart';
 
-class SettingsAction extends StatelessWidget {
+class BarAction extends StatelessWidget {
   final String safetyTitle;
   final String safetySubtitle;
   final String buttonLabel;
@@ -11,7 +11,7 @@ class SettingsAction extends StatelessWidget {
   final ValueChanged<bool> onConfirmedChanged;
   final VoidCallback? onPressed;
 
-  const SettingsAction({
+  const BarAction({
     super.key,
     required this.safetyTitle,
     required this.safetySubtitle,
@@ -28,19 +28,11 @@ class SettingsAction extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.colors.surfaceContainerLowest,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-        boxShadow: [
-          BoxShadow(
-            color: context.colors.shadow.withValues(alpha: 0.05),
-            blurRadius: 15,
-            offset: const Offset(0, -5),
-          ),
-        ],
       ),
       child: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Checklist Konfirmasi menggunakan Switch
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(
@@ -66,10 +58,8 @@ class SettingsAction extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 4),
               child: DashedDivider(),
             ),
-
             AppSpacing.vGap16,
 
-            // Tombol Aksi
             SizedBox(
               width: double.infinity,
               height: 56,
@@ -82,13 +72,14 @@ class SettingsAction extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  disabledBackgroundColor: context.colors.surfaceContainerHighest,
+                  disabledBackgroundColor:
+                      context.colors.surfaceContainerHighest,
                 ),
                 child: Text(
                   buttonLabel,
                   style: context.text.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: isConfirmed
+                    color: (isConfirmed && onPressed != null)
                         ? context.colors.onPrimary
                         : context.colors.onSurfaceVariant.withValues(
                             alpha: 0.5,

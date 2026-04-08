@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 
-class SettingsForm extends StatelessWidget {
+class FormContainer extends StatelessWidget {
   final List<Widget> children;
   final EdgeInsetsGeometry? padding;
+  final double gap;
 
-  const SettingsForm({
+  const FormContainer({
     super.key,
     required this.children,
     this.padding,
+    this.gap = 24.0,
   });
 
   @override
@@ -17,22 +19,20 @@ class SettingsForm extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: context.colors.surfaceContainerLowest.withValues(alpha: 0.8),
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: context.colors.surfaceContainerLowest,
           width: 1.2,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: context.colors.shadow.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
+        children: [
+          for (var i = 0; i < children.length; i++) ...[
+            children[i],
+            if (i < children.length - 1) SizedBox(height: gap),
+          ],
+        ],
       ),
     );
   }

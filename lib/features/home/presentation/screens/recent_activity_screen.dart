@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/core/widgets/header_app.dart';
-import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
-import 'package:smart_carbon_tracking/features/home/controllers/recent_activity_controller.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/recent_activity.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/filter_category.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/summary_bar.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
+import 'package:smart_carbon_tracking/features/home/home.dart';
 
 class RecentActivityScreen extends StatefulWidget {
   const RecentActivityScreen({super.key});

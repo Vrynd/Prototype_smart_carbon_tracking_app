@@ -4,21 +4,21 @@ import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 import 'package:smart_carbon_tracking/features/home/models/activity_item.dart';
 
-enum TileVariant { plain, outline }
+enum ActivityVariant { plain, outline }
 
 class ActivityTile extends StatelessWidget {
   final ActivityItem data;
-  final TileVariant variant;
+  final ActivityVariant variant;
 
   const ActivityTile({
     super.key,
     required this.data,
-    this.variant = TileVariant.outline,
+    this.variant = ActivityVariant.outline,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isPlain = variant == TileVariant.plain;
+    final bool isPlain = variant == ActivityVariant.plain;
 
     return Container(
       padding: const EdgeInsets.all(16),

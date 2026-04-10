@@ -15,7 +15,7 @@ class RecentActivity extends StatelessWidget {
   final String? title;
   final VoidCallback? onSeeAllTap;
   final bool useContainer;
-  final TileVariant variant;
+  final ActivityVariant variant;
 
   const RecentActivity({
     super.key,
@@ -25,7 +25,7 @@ class RecentActivity extends StatelessWidget {
     this.title,
     this.onSeeAllTap,
     this.useContainer = true,
-    this.variant = TileVariant.outline,
+    this.variant = ActivityVariant.outline,
   });
 
   @override
@@ -149,10 +149,7 @@ class RecentActivity extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (var i = 0; i < activities!.length; i++) ...[
-            ActivityTile(
-              data: activities![i],
-              variant: variant,
-            ),
+            ActivityTile(data: activities![i], variant: variant),
             if (i != activities!.length - 1) AppSpacing.vGap12,
           ],
         ],

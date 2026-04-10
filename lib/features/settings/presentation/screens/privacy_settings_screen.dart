@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart' hide Hero;
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/core/widgets/header_app.dart';
-import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
-import 'package:smart_carbon_tracking/features/settings/controllers/privacy_settings_controller.dart';
-import 'package:smart_carbon_tracking/features/settings/presentation/widgets/bar_action.dart';
-import 'package:smart_carbon_tracking/features/settings/presentation/widgets/hero_header.dart';
-import 'package:smart_carbon_tracking/features/settings/presentation/widgets/privacy_settings_form.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
+import 'package:smart_carbon_tracking/features/settings/settings.dart';
 
 class PrivacySettingsScreen extends StatelessWidget {
   const PrivacySettingsScreen({super.key});

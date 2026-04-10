@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_bottom_sheet.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_loading.dart';
-import 'package:smart_carbon_tracking/core/widgets/header_app.dart';
-import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
-import 'package:smart_carbon_tracking/features/settings/presentation/widgets/account_profile.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_setting_group.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_setting_tile.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
+import 'package:smart_carbon_tracking/features/settings/settings.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});

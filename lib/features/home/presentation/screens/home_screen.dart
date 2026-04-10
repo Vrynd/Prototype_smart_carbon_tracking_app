@@ -2,16 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/widgets/header_app.dart';
-import 'package:smart_carbon_tracking/core/widgets/scaffold_app.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/activity_tile.dart';
-import 'package:smart_carbon_tracking/core/widgets/title_action.dart';
-import 'package:smart_carbon_tracking/features/home/controllers/home_controller.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/dashboard_stats.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/recent_activity.dart';
-import 'package:smart_carbon_tracking/features/home/presentation/widgets/recommendations_list.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
+import 'package:smart_carbon_tracking/features/home/home.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -86,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: RecentActivity(
                     useContainer: false,
                     activities: controller.recentActivities,
-                    variant: TileVariant.plain,
+                    variant: ActivityVariant.plain,
                   ),
                 ),
                 AppSpacing.vGap32,

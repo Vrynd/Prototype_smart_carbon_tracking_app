@@ -101,11 +101,12 @@ class RecentActivityController extends ChangeNotifier {
     _allActivities = [];
     _selectedPeriod = ActivityPeriod.all;
     _selectedCategory = ActivityCategory.all;
-    notifyListeners();
+    // Removed notifyListeners() to prevent crashes when called during dispose()
   }
 
   void init() {
     _allActivities = HomeData.getRecentActivities();
-    notifyListeners();
+    // Use microtask to ensure notifyListeners() doesn't clash with build
+    Future.microtask(() => notifyListeners());
   }
 }

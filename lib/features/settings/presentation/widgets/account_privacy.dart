@@ -20,9 +20,8 @@ class AccountPrivacy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppContainer(
-      variant: ContainerVariant.basic,
       padding: const EdgeInsets.all(16),
-      gap: 12,
+      spacing: 12,
       borderColor: isActive
           ? context.colors.primary.withValues(alpha: 0.3)
           : context.colors.surfaceContainerLowest,

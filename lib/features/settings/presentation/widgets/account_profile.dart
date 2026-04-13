@@ -27,8 +27,7 @@ class AccountProfile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
-      child: AppContainer(
-        variant: ContainerVariant.compact,
+      child: AppContainer.compact(
         children: [
           Row(
             spacing: 16,

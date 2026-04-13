@@ -36,11 +36,10 @@ class RecentActivity extends StatelessWidget {
 
     final bool hasHeader = onPeriodChanged != null || title != null;
 
-    return AppContainer(
-      variant: ContainerVariant.compact,
+    return AppContainer.compact(
       padding: EdgeInsets.zero,
       borderRadius: 24,
-      gap: 0,
+      spacing: 0,
       children: [
         if (hasHeader) ...[
           if (onPeriodChanged != null && selectedPeriod != null)

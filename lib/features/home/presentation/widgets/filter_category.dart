@@ -18,11 +18,10 @@ class FilterCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppContainer(
-      variant: ContainerVariant.compact,
+    return AppContainer.compact(
       padding: EdgeInsets.zero,
       borderRadius: 24,
-      gap: 0,
+      spacing: 0,
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),

@@ -84,8 +84,10 @@ class _CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color displayColor = isSelected ? activeColor : context.colors.onSurfaceVariant;
-    
+    final Color displayColor = isSelected
+        ? activeColor
+        : context.colors.onSurfaceVariant;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -98,12 +100,14 @@ class _CategoryItem extends StatelessWidget {
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isSelected 
+                  color: isSelected
                       ? activeColor.withValues(alpha: 0.1)
-                      : context.colors.surfaceContainerLowest.withValues(alpha: 0.6),
+                      : context.colors.surfaceContainerLowest.withValues(
+                          alpha: 0.6,
+                        ),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isSelected 
+                    color: isSelected
                         ? activeColor.withValues(alpha: 0.4)
                         : context.colors.outlineVariant.withValues(alpha: 0.6),
                     width: isSelected ? 1.5 : 1.1,
@@ -111,11 +115,13 @@ class _CategoryItem extends StatelessWidget {
                 ),
                 child: HugeIcon(
                   icon: icon,
-                  color: isSelected ? activeColor : context.colors.onSurfaceVariant,
+                  color: isSelected
+                      ? activeColor
+                      : context.colors.onSurfaceVariant,
                   size: 24,
                 ),
               ),
-              
+
               if (isSelected)
                 Positioned(
                   top: -2,
@@ -125,7 +131,10 @@ class _CategoryItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: activeColor,
                       shape: BoxShape.circle,
-                      border: Border.all(color: context.colors.surfaceContainerHigh, width: 1.5),
+                      border: Border.all(
+                        color: context.colors.surfaceContainerHigh,
+                        width: 1.5,
+                      ),
                     ),
                     child: HugeIcon(
                       icon: HugeIcons.strokeRoundedCheckmarkBadge01,

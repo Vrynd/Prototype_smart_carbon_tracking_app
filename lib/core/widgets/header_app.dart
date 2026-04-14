@@ -12,6 +12,7 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
   final double toolbarHeight;
   final Color? backgroundColor;
   final HeaderVariant variant;
+  final bool isScrolled;
 
   const HeaderApp({
     super.key,
@@ -22,10 +23,19 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
     this.toolbarHeight = 66,
     this.backgroundColor,
     this.variant = HeaderVariant.main,
+    this.isScrolled = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isScrolled) {
+      debugPrint('[HeaderApp] Status: SCROLLED (Solid White)');
+    } else {
+      debugPrint('[HeaderApp] Status: TOP (Matching Surface)');
+    }
+
+    // ... leadingWidget and actionWidgets logic ...
+    // (I'll keep the logic in the replacement)
     Widget? leadingWidget;
     if (leading != null) {
       leadingWidget = leading;
@@ -55,7 +65,9 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
                 border: Border.all(
                   width: 1.2,
-                  color: context.colors.surfaceContainerLowest,
+                  color: isScrolled
+                      ? context.colors.outlineVariant.withValues(alpha: 0.6)
+                      : context.colors.surfaceContainerLowest,
                 ),
               ),
               child: Center(
@@ -111,10 +123,18 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
 
     bool effectiveCenterTitle = centerTitle ?? (variant == HeaderVariant.main);
 
+    if (isScrolled) {
+      debugPrint('[HeaderApp] Status: SCROLLED (Solid White)');
+    } else {
+      debugPrint('[HeaderApp] Status: TOP (Matching Surface)');
+    }
+
     return AppBar(
       backgroundColor:
           backgroundColor ??
-          context.colors.surfaceContainerLow.withValues(alpha: .7),
+          (isScrolled
+              ? context.colors.surfaceContainerLowest
+              : context.colors.surfaceContainerLow),
       toolbarHeight: toolbarHeight,
       leading: leadingWidget,
       leadingWidth: variant == HeaderVariant.detail ? 56 : null,
@@ -125,8 +145,8 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: effectiveCenterTitle,
+      elevation: isScrolled ? 3 : 0,
       scrolledUnderElevation: 0,
-      elevation: 0,
       actions: actionWidgets,
     );
   }

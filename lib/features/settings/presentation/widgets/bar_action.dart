@@ -22,7 +22,6 @@ class BarAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBottomBar(
-      variant: BottomVariant.action,
       safetyTitle: safetyTitle,
       safetySubtitle: safetySubtitle,
       buttonLabel: buttonLabel,

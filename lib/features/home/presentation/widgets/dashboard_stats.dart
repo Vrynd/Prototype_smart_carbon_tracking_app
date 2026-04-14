@@ -7,10 +7,7 @@ import 'package:smart_carbon_tracking/features/home/models/dashboard_stats_model
 class DashboardStats extends StatelessWidget {
   final DashboardStatsModel stats;
 
-  const DashboardStats({
-    super.key,
-    required this.stats,
-  });
+  const DashboardStats({super.key, required this.stats});
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +86,8 @@ class _StatCard extends StatelessWidget {
     final Color contentColor = color == context.colors.primary
         ? context.colors.onPrimary
         : (color == context.colors.secondary
-            ? context.colors.onSecondary
-            : context.colors.onSurface);
+              ? context.colors.onSecondary
+              : context.colors.onSurface);
 
     return Container(
       height: height,
@@ -126,11 +123,14 @@ class _StatCard extends StatelessWidget {
           const Spacer(),
           Text(
             value,
-            style: (height > 150 ? context.text.displaySmall : context.text.headlineMedium)
-                ?.copyWith(
-              color: contentColor,
-              fontWeight: FontWeight.bold,
-            ),
+            style:
+                (height > 150
+                        ? context.text.displaySmall
+                        : context.text.headlineMedium)
+                    ?.copyWith(
+                      color: contentColor,
+                      fontWeight: FontWeight.bold,
+                    ),
           ),
         ],
       ),

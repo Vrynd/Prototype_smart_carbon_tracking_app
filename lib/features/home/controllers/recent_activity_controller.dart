@@ -9,32 +9,34 @@ class RecentActivityController extends ChangeNotifier {
   List<ActivityItem> _allActivities = [];
   ActivityPeriod _selectedPeriod = ActivityPeriod.all;
   ActivityCategory _selectedCategory = ActivityCategory.all;
+  bool _showFullHistory = false;
 
   ActivityPeriod get selectedPeriod => _selectedPeriod;
   ActivityCategory get selectedCategory => _selectedCategory;
+  bool get showFullHistory => _showFullHistory;
 
-  List<ActivityItem> get filteredActivities {
+  bool get hasMoreActivities {
+    final activities = filteredActivities;
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
 
-    return _allActivities.where((item) {
+    for (final item in activities) {
       final itemDate = DateTime(item.date.year, item.date.month, item.date.day);
+      if (itemDate != today && itemDate != yesterday) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-      final bool periodMatch = switch (_selectedPeriod) {
-        ActivityPeriod.today => itemDate == today,
-        ActivityPeriod.thisWeek => !item.date.isBefore(
-          today.subtract(const Duration(days: 6)),
-        ),
-        ActivityPeriod.thisMonth =>
-          item.date.year == now.year && item.date.month == now.month,
-        ActivityPeriod.all => true,
-      };
-
+  List<ActivityItem> get filteredActivities {
+    return _allActivities.where((item) {
       final bool categoryMatch =
           _selectedCategory == ActivityCategory.all ||
           item.category == _selectedCategory;
 
-      return periodMatch && categoryMatch;
+      return categoryMatch;
     }).toList();
   }
 
@@ -49,43 +51,62 @@ class RecentActivityController extends ChangeNotifier {
     for (final item in activities) {
       final itemDate = DateTime(item.date.year, item.date.month, item.date.day);
 
+      const months = [
+        '',
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
+      final String dateStr =
+          '${months[item.date.month]} ${item.date.day}, ${item.date.year}';
+
       final String label;
       if (itemDate == today) {
-        label = 'Today';
+        label = 'Today, $dateStr';
       } else if (itemDate == yesterday) {
-        label = 'Yesterday';
+        label = 'Yesterday, $dateStr';
       } else {
-        const months = [
-          '',
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December',
-        ];
-        label =
-            '${months[item.date.month]} ${item.date.day}, ${item.date.year}';
+        label = dateStr;
       }
 
       grouped.putIfAbsent(label, () => []).add(item);
     }
 
-    return grouped.entries
+    final allGroups = grouped.entries
         .map((e) => ActivityGroup(label: e.key, items: e.value))
         .toList();
+
+    if (!_showFullHistory) {
+      return allGroups
+          .where(
+            (g) =>
+                g.label.startsWith('Today') || g.label.startsWith('Yesterday'),
+          )
+          .toList();
+    }
+
+    return allGroups;
   }
 
   double get totalImpactKg =>
       filteredActivities.fold(0.0, (sum, item) => sum + item.impactKg);
 
   int get activityCount => filteredActivities.length;
+
+  void toggleFullHistory(bool value) {
+    _showFullHistory = value;
+    notifyListeners();
+  }
 
   void setPeriod(ActivityPeriod period) {
     _selectedPeriod = period;
@@ -101,6 +122,7 @@ class RecentActivityController extends ChangeNotifier {
     _allActivities = [];
     _selectedPeriod = ActivityPeriod.all;
     _selectedCategory = ActivityCategory.all;
+    _showFullHistory = false;
     // Removed notifyListeners() to prevent crashes when called during dispose()
   }
 

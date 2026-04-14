@@ -4,35 +4,31 @@ import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 import 'package:smart_carbon_tracking/features/home/models/activity_item.dart';
 
-enum ActivityVariant { plain, outline }
-
 class ActivityTile extends StatelessWidget {
   final ActivityItem data;
-  final ActivityVariant variant;
+  final BorderRadius? borderRadius;
+  final bool showBorder;
 
   const ActivityTile({
     super.key,
     required this.data,
-    this.variant = ActivityVariant.outline,
+    this.borderRadius,
+    this.showBorder = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isPlain = variant == ActivityVariant.plain;
-
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isPlain
-            ? context.colors.surfaceContainerLowest.withValues(alpha: .8)
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: isPlain
-              ? context.colors.surfaceContainerLowest
-              : context.colors.outlineVariant.withValues(alpha: .5),
-          width: isPlain ? 1.2 : 1,
-        ),
+        color: context.colors.surfaceContainerLowest.withValues(alpha: .8),
+        borderRadius: borderRadius ?? BorderRadius.circular(20),
+        border: showBorder
+            ? Border.all(
+                color: context.colors.surfaceContainerLowest,
+                width: 1.2,
+              )
+            : null,
       ),
       child: _buildContent(context),
     );
@@ -40,6 +36,7 @@ class ActivityTile extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           padding: const EdgeInsets.all(10),
@@ -57,15 +54,16 @@ class ActivityTile extends StatelessWidget {
               Text(
                 data.title,
                 style: context.text.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
                   color: context.colors.onSurface,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               AppSpacing.vGap4,
               Text(
                 data.subtitle,
                 style: context.text.labelMedium?.copyWith(
-                  color: context.colors.onSurfaceVariant,
+                  color: context.colors.outline,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -73,10 +71,7 @@ class ActivityTile extends StatelessWidget {
         ),
         Text(
           data.impact,
-          style: context.text.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: context.colors.error,
-          ),
+          style: context.text.labelLarge?.copyWith(color: context.colors.error),
         ),
       ],
     );

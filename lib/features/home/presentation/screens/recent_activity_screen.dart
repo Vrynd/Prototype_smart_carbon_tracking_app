@@ -14,17 +14,10 @@ class _RecentActivityScreenState extends State<RecentActivityScreen> {
   late RecentActivityController _controller;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _controller = context.read<RecentActivityController>();
-  }
-
-  @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _controller.init();
-    });
+    _controller = context.read<RecentActivityController>();
+    _controller.init();
   }
 
   @override
@@ -39,18 +32,23 @@ class _RecentActivityScreenState extends State<RecentActivityScreen> {
       builder: (context, controller, _) {
         return ScaffoldApp(
           backgroundColor: context.colors.surfaceContainerLow,
-          appBar: HeaderApp(
+          appBar: const HeaderApp(
             title: 'Recent Activity',
             variant: HeaderVariant.detail,
           ),
           body: ListView(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+            padding: EdgeInsets.fromLTRB(
+              16,
+              16,
+              16,
+              controller.showFullHistory ? 64 : 32,
+            ),
             children: [
               SummaryBar(
                 totalKg: controller.totalImpactKg,
                 activityCount: controller.activityCount,
-                period: controller.selectedPeriod,
-                onPeriodTap: null,
+                tag: controller.selectedCategory.label,
+                title: 'Activity Summary',
               ),
               AppSpacing.vGap24,
 
@@ -60,13 +58,20 @@ class _RecentActivityScreenState extends State<RecentActivityScreen> {
               ),
               AppSpacing.vGap24,
 
-              RecentActivity(
-                activities: controller.filteredActivities,
-                selectedPeriod: controller.selectedPeriod,
-                onPeriodChanged: (period) => controller.setPeriod(period),
-              ),
+              RecentActivity(groups: controller.groupedActivities),
             ],
           ),
+          bottomNavigationBar:
+              (!controller.showFullHistory && controller.hasMoreActivities)
+              ? AppBottomBar(
+                  buttonLabel: 'See Older Activities',
+                  isConfirmed: true,
+                  showDecoration: false,
+                  bgColor: context.colors.primary.withValues(alpha: 0.08),
+                  fgColor: context.colors.primary,
+                  onActionPressed: () => controller.toggleFullHistory(true),
+                )
+              : null,
         );
       },
     );

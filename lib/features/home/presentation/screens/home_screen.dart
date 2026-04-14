@@ -38,27 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: const BouncingScrollPhysics(),
             ),
             child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 32),
               children: [
                 if (stats != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: DashboardStats(stats: stats),
                   ),
-                AppSpacing.vGap32,
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TitleAction(
-                    title: 'Rekomendasi',
-                    actionType: ActionType.dots,
-                    dotCount: 4,
-                  ),
-                ),
-                AppSpacing.vGap10,
-
-                RecommendationsList(items: controller.recommendations),
-                AppSpacing.vGap32,
+                AppSpacing.vGap24,
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -76,12 +63,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: RecentActivity(
-                    useContainer: false,
                     activities: controller.recentActivities,
-                    variant: ActivityVariant.plain,
+                    isGrouped: true,
                   ),
                 ),
                 AppSpacing.vGap32,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TitleAction(
+                    title: 'Rekomendasi',
+                    actionType: ActionType.dots,
+                    dotCount: 4,
+                  ),
+                ),
+                AppSpacing.vGap10,
+
+                RecommendationsList(items: controller.recommendations),
               ],
             ),
           ),

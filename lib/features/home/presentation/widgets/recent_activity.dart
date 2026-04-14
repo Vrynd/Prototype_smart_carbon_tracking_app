@@ -1,160 +1,160 @@
 import 'package:flutter/material.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_container.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_empty_state.dart';
-import 'package:smart_carbon_tracking/core/widgets/dashed_divider.dart';
-import 'package:smart_carbon_tracking/features/home/models/activity_period.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
+import 'package:smart_carbon_tracking/features/home/models/activity_group.dart';
 import 'package:smart_carbon_tracking/features/home/models/activity_item.dart';
 import 'package:smart_carbon_tracking/features/home/presentation/widgets/activity_tile.dart';
 
 class RecentActivity extends StatelessWidget {
   final List<ActivityItem>? activities;
-  final ActivityPeriod? selectedPeriod;
-  final ValueChanged<ActivityPeriod>? onPeriodChanged;
-  final String? title;
-  final VoidCallback? onSeeAllTap;
-  final bool useContainer;
-  final ActivityVariant variant;
+  final List<ActivityGroup>? groups;
+  final bool isGrouped;
 
   const RecentActivity({
     super.key,
     this.activities,
-    this.selectedPeriod,
-    this.onPeriodChanged,
-    this.title,
-    this.onSeeAllTap,
-    this.useContainer = true,
-    this.variant = ActivityVariant.outline,
+    this.groups,
+    this.isGrouped = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (!useContainer) {
-      return _buildBody(context);
+    if (groups != null) {
+      return _buildTimeline(context);
     }
 
-    final bool hasHeader = onPeriodChanged != null || title != null;
+    return _buildBody(context);
+  }
 
-    return AppContainer.compact(
-      padding: EdgeInsets.zero,
-      borderRadius: 24,
-      spacing: 0,
+  Widget _buildTimeline(BuildContext context) {
+    if (groups == null || groups!.isEmpty) {
+      return _buildEmptyState();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: groups!.asMap().entries.map((entry) {
+        final int groupIndex = entry.key;
+        final ActivityGroup group = entry.value;
+        final bool isLastGroup = groupIndex == groups!.length - 1;
+
+        return _buildGroupSection(context, group, isLastGroup);
+      }).toList(),
+    );
+  }
+
+  Widget _buildGroupSection(
+    BuildContext context,
+    ActivityGroup group,
+    bool isLastGroup,
+  ) {
+    final bool isToday = group.label.startsWith('Today');
+    final bool isYesterday = group.label.startsWith('Yesterday');
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (hasHeader) ...[
-          if (onPeriodChanged != null && selectedPeriod != null)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: context.colors.surfaceContainerHighest.withValues(
-                    alpha: 0.4,
-                  ),
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Row(
-                  children: ActivityPeriod.values.map((period) {
-                    final isSelected = selectedPeriod == period;
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () => onPeriodChanged!(period),
-                        borderRadius: BorderRadius.circular(28),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeOutCubic,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? Colors.green.withValues(alpha: 0.1)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(28),
-                            border: Border.all(
-                              color: isSelected
-                                  ? Colors.green.withValues(alpha: 0.6)
-                                  : Colors.transparent,
-                              width: 1,
-                            ),
-                          ),
-                          child: Text(
-                            period.label,
-                            style: context.text.labelLarge?.copyWith(
-                              color: isSelected
-                                  ? Colors.green
-                                  : context.colors.onSurfaceVariant,
-                              fontWeight: isSelected
-                                  ? FontWeight.w800
-                                  : FontWeight.w600,
-                              letterSpacing: 0.2,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            )
-          else if (title != null)
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title!,
-                    style: context.text.titleMedium?.copyWith(
-                      color: context.colors.onSurfaceVariant,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  if (onSeeAllTap != null)
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: onSeeAllTap,
-                        borderRadius: BorderRadius.circular(12),
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: context.colors.primary.withValues(
-                              alpha: 0.08,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 14,
-                            color: context.colors.primary,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          const DashedDivider(),
-        ],
+        _buildGroupHeader(context, group.label),
+        ...group.items.asMap().entries.map((entry) {
+          final int index = entry.key;
+          final ActivityItem item = entry.value;
+          final bool isLastInGroup = index == group.items.length - 1;
 
-        Padding(padding: const EdgeInsets.all(16), child: _buildBody(context)),
+          return _buildTimelineItem(
+            item: item,
+            isLastInGroup: isLastInGroup,
+            isToday: isToday,
+            isYesterday: isYesterday,
+          );
+        }),
+        if (!isLastGroup) AppSpacing.vGap24,
+      ],
+    );
+  }
+
+  Widget _buildGroupHeader(BuildContext context, String label) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(
+        label,
+        style: context.text.titleSmall?.copyWith(color: context.colors.outline),
+      ),
+    );
+  }
+
+  Widget _buildTimelineItem({
+    required ActivityItem item,
+    required bool isLastInGroup,
+    required bool isToday,
+    required bool isYesterday,
+  }) {
+    return Column(
+      children: [
+        AppTimeline(
+          isLast: isLastInGroup,
+          style: isToday ? TimelineStyle.solid : TimelineStyle.dashed,
+          showGlow: isToday,
+          dotColor: _getDotColor(isToday, isYesterday),
+          lineColor: isToday ? Colors.green.withValues(alpha: 0.3) : null,
+          child: ActivityTile(data: item),
+        ),
+        if (!isLastInGroup) AppSpacing.vGap8,
       ],
     );
   }
 
   Widget _buildBody(BuildContext context) {
-    if (activities != null && activities!.isNotEmpty) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (var i = 0; i < activities!.length; i++) ...[
-            ActivityTile(data: activities![i], variant: variant),
-            if (i != activities!.length - 1) AppSpacing.vGap12,
-          ],
+    if (activities == null || activities!.isEmpty) {
+      return _buildEmptyState();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < activities!.length; i++) ...[
+          ActivityTile(
+            data: activities![i],
+            borderRadius: isGrouped
+                ? _getGroupedRadius(i, activities!.length)
+                : null,
+            showBorder: !isGrouped,
+          ),
+          if (i != activities!.length - 1)
+            isGrouped ? const SizedBox(height: 4) : AppSpacing.vGap12,
         ],
+      ],
+    );
+  }
+
+  BorderRadius _getGroupedRadius(int index, int total) {
+    const double outerRadius = 22;
+    const double innerRadius = 12;
+
+    if (total == 1) return BorderRadius.circular(outerRadius);
+
+    if (index == 0) {
+      return const BorderRadius.vertical(
+        top: Radius.circular(outerRadius),
+        bottom: Radius.circular(innerRadius),
       );
     }
 
+    if (index == total - 1) {
+      return const BorderRadius.vertical(
+        top: Radius.circular(innerRadius),
+        bottom: Radius.circular(outerRadius),
+      );
+    }
+
+    return BorderRadius.circular(innerRadius);
+  }
+
+  Color _getDotColor(bool isToday, bool isYesterday) {
+    if (isToday) return Colors.green;
+    if (isYesterday) return Colors.blue;
+    return Colors.grey[400]!;
+  }
+
+  Widget _buildEmptyState() {
     return const AppEmptyState(
       title: 'No activity found',
       subtitle: 'Start tracking your carbon footprint today',

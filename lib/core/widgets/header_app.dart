@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:smart_carbon_tracking/core/router/app_router.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 
 enum HeaderVariant { main, detail }
@@ -123,6 +125,13 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
 
     bool effectiveCenterTitle = centerTitle ?? (variant == HeaderVariant.main);
 
+    // Resolve dynamic title if not provided
+    String? resolvedTitle = title;
+    if (resolvedTitle == null) {
+      final String? routeName = GoRouterState.of(context).name;
+      resolvedTitle = AppRouter.getRouteTitle(routeName);
+    }
+
     if (isScrolled) {
       debugPrint('[HeaderApp] Status: SCROLLED (Solid White)');
     } else {
@@ -139,7 +148,7 @@ class HeaderApp extends StatelessWidget implements PreferredSizeWidget {
       leading: leadingWidget,
       leadingWidth: variant == HeaderVariant.detail ? 56 : null,
       title: Text(
-        title ?? 'DashBoard',
+        resolvedTitle,
         style: context.text.headlineMedium?.copyWith(
           fontWeight: FontWeight.w600,
         ),

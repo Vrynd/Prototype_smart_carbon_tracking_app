@@ -32,8 +32,25 @@ class AppRouter {
       GoRoute(
         path: '/home/recent-activity',
         name: 'recent-activity',
-        builder: (context, state) => const RecentActivityScreen()
+        builder: (context, state) => const RecentActivityScreen(),
       ),
     ],
   );
+
+  static String getRouteTitle(String? name) {
+    switch (name) {
+      case 'navigation':
+        return 'DashBoard';
+      case 'scan':
+        return 'Scan Carbon';
+      case 'change-password':
+        return 'Change Password';
+      case 'privacy':
+        return 'Privacy Settings';
+      case 'recent-activity':
+        return 'Recent Activity';
+      default:
+        return 'DashBoard';
+    }
+  }
 }

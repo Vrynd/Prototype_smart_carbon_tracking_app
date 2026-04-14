@@ -33,7 +33,6 @@ class _RecentActivityScreenState extends State<RecentActivityScreen> {
         return ScaffoldApp(
           backgroundColor: context.colors.surfaceContainerLow,
           appBar: const HeaderApp(
-            title: 'Recent Activity',
             variant: HeaderVariant.detail,
           ),
           body: ListView(

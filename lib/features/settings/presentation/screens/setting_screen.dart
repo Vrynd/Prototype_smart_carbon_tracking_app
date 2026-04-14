@@ -118,7 +118,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return ScaffoldApp(
       backgroundColor: context.colors.surfaceContainerLow,
-      appBar: const HeaderApp(title: 'Settings'),
+      appBar: const HeaderApp(),
       body: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(
           overscroll: false,

@@ -16,7 +16,6 @@ class PrivacySettingsScreen extends StatelessWidget {
           return ScaffoldApp(
             backgroundColor: context.colors.surfaceContainerLow,
             appBar: const HeaderApp(
-              title: 'Privacy Settings',
               variant: HeaderVariant.detail,
             ),
             body: ScrollConfiguration(

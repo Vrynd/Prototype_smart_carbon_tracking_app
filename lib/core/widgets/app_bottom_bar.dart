@@ -58,15 +58,19 @@ class AppBottomBar extends StatelessWidget {
             children: [
               if (hasSwitchSection) ...[
                 _buildSafetySection(context),
-              ],
-              if (buttonLabel != null) ...[
-                if (hasSwitchSection) ...[
+                if (child != null || buttonLabel != null) ...[
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 4),
                     child: DashedDivider(),
                   ),
                   AppSpacing.vGap16,
                 ],
+              ],
+              if (child != null) ...[
+                child!,
+              ],
+              if (buttonLabel != null) ...[
+                if (child != null) AppSpacing.vGap16,
                 _buildActionButton(context),
               ],
             ],

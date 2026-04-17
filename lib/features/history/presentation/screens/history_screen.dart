@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide SearchBar;
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_carbon_tracking/core/core.dart';
 import 'package:smart_carbon_tracking/features/history/history.dart';
@@ -104,6 +105,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       child: HistoryTile(
                         item: item,
                         onDelete: () => controller.deleteHistoryItem(item.id),
+                        onTap: () => context.push('/history/detail', extra: item),
                       ),
                     );
                   }),

@@ -51,6 +51,26 @@ class AppBottomSheet {
       child: _SelectionList<T>(options: options, selectedValue: selectedValue),
     );
   }
+
+  static Future<bool?> showConfirmation(
+    BuildContext context, {
+    required String title,
+    String? subtitle,
+    String confirmLabel = 'Konfirmasi',
+    String cancelLabel = 'Batal',
+    bool isDanger = false,
+  }) {
+    return show<bool>(
+      context,
+      title: title,
+      subtitle: subtitle,
+      child: _ConfirmationContent(
+        confirmLabel: confirmLabel,
+        cancelLabel: cancelLabel,
+        isDanger: isDanger,
+      ),
+    );
+  }
 }
 
 class AppBottomSheetWrapper extends StatelessWidget {
@@ -200,6 +220,75 @@ class _SelectionList<T> extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _ConfirmationContent extends StatelessWidget {
+  final String confirmLabel;
+  final String cancelLabel;
+  final bool isDanger;
+
+  const _ConfirmationContent({
+    required this.confirmLabel,
+    required this.cancelLabel,
+    required this.isDanger,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 12,
+      children: [
+        // ─── Cancel Button ───
+        Expanded(
+          flex: 1,
+          child: TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: context.colors.outlineVariant,
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Text(
+              cancelLabel,
+              style: context.text.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: context.colors.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ),
+
+        // ─── Confirm Button ───
+        Expanded(
+          flex: 2,
+          child: ElevatedButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isDanger ? Colors.red.shade400 : context.colors.primary,
+              foregroundColor: context.colors.onPrimary,
+              elevation: 0,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            child: Text(
+              confirmLabel,
+              style: context.text.titleSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: context.colors.onPrimary,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

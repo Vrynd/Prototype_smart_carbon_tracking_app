@@ -1,7 +1,15 @@
 export 'controllers/history_controller.dart';
 export 'models/history_item.dart';
+export 'models/history_detail_item.dart';
+export 'models/carbon_equivalent.dart';
 export 'presentation/screens/history_screen.dart';
+export 'presentation/screens/history_detail_screen.dart';
 export 'presentation/widgets/history_tile.dart';
 export 'presentation/widgets/search_bar.dart';
 export 'presentation/widgets/filter_bottom_sheet.dart';
 export 'presentation/widgets/history_summary_card.dart';
+export 'presentation/widgets/total_emission.dart';
+export 'presentation/widgets/history_info.dart';
+export 'presentation/widgets/receipt_breakdown.dart';
+export 'presentation/widgets/carbon_context.dart';
+export 'presentation/widgets/green_tips.dart';

@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:smart_carbon_tracking/features/history/models/history_item.dart';
+import 'package:smart_carbon_tracking/features/history/presentation/screens/history_detail_screen.dart';
 import 'package:smart_carbon_tracking/features/history/presentation/screens/history_screen.dart';
 import 'package:smart_carbon_tracking/features/home/presentation/screens/recent_activity_screen.dart';
 import 'package:smart_carbon_tracking/features/navigation/presentation/screens/navigation_screen.dart';
@@ -40,14 +42,14 @@ class AppRouter {
         name: 'history',
         builder: (context, state) => const HistoryScreen(),
         routes: [
-          // GoRoute(
-          //   path: 'detail',
-          //   name: 'history-detail',
-          //   builder: (context, state) {
-          //     final receipt = state.extra as ReceiptModel;
-          //     return HistoryDetailScreen(receipt: receipt);
-          //   },
-          // ),
+          GoRoute(
+            path: 'detail',
+            name: 'history-detail',
+            builder: (context, state) {
+              final item = state.extra as HistoryItem;
+              return HistoryDetailScreen(item: item);
+            },
+          ),
         ],
       ),
     ],
@@ -79,8 +81,8 @@ class AppRouter {
         return 'Recent Activity';
       case 'history':
         return 'Scan History';
-      // case 'history-detail':
-      //   return extra is ReceiptModel ? extra.merchantName : 'Receipt Detail';
+      case 'history-detail':
+        return extra is HistoryItem ? extra.storeName : 'Receipt Detail';
       default:
         return 'DashBoard';
     }

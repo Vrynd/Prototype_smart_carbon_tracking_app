@@ -3,6 +3,7 @@ export 'themes/app_spacing.dart';
 export 'themes/app_theme.dart';
 
 export 'widgets/app_bottom_bar.dart';
+export 'widgets/app_bottom_dual_action.dart';
 export 'widgets/app_bottom_sheet.dart';
 export 'widgets/app_container.dart';
 export 'widgets/app_empty_state.dart';

@@ -7,16 +7,20 @@ import 'package:smart_carbon_tracking/features/history/models/history_item.dart'
 class HistoryTile extends StatelessWidget {
   final HistoryItem item;
   final VoidCallback? onDelete;
+  final VoidCallback? onTap;
 
   const HistoryTile({
     super.key,
     required this.item,
     this.onDelete,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AppContainer.compact(
+    return GestureDetector(
+      onTap: onTap,
+      child: AppContainer.compact(
       margin: const EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.zero,
       child: Column(
@@ -145,6 +149,7 @@ class HistoryTile extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

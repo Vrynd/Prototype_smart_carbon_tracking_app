@@ -40,7 +40,7 @@ class _CarbonEmissionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppSettingTile(
+    return AppTile(
       variant: TileVariant.classic,
       icon: breakdown.icon,
       iconColor: breakdown.color,

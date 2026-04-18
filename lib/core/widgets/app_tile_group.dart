@@ -7,13 +7,13 @@ enum GroupVariant {
   modern,
 }
 
-class AppSettingGroup extends StatelessWidget {
+class AppTileGroup extends StatelessWidget {
   final List<Widget> children;
   final String? title;
   final GroupVariant variant;
   final Color? backgroundColor;
 
-  const AppSettingGroup({
+  const AppTileGroup({
     super.key,
     required this.children,
     this.title,

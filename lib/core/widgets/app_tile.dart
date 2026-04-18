@@ -5,7 +5,7 @@ import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 
 enum TileVariant { classic, modern }
 
-class AppSettingTile extends StatelessWidget {
+class AppTile extends StatelessWidget {
   final dynamic icon;
   final String title;
   final String? subtitle;
@@ -17,7 +17,7 @@ class AppSettingTile extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isDanger;
 
-  const AppSettingTile({
+  const AppTile({
     super.key,
     required this.icon,
     required this.title,
@@ -44,53 +44,56 @@ class AppSettingTile extends StatelessWidget {
         ? Colors.redAccent
         : (iconColor ?? context.colors.primary);
 
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: effectiveColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: effectiveColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: HugeIcon(icon: icon, color: effectiveColor, size: 20),
               ),
-              child: HugeIcon(icon: icon, color: effectiveColor, size: 20),
-            ),
-            AppSpacing.hGap16,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: context.text.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isDanger
-                          ? Colors.redAccent
-                          : context.colors.onSurface,
-                    ),
-                  ),
-                  if (subtitle != null)
+              AppSpacing.hGap16,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      subtitle!,
-                      style: context.text.labelSmall?.copyWith(
-                        color: context.colors.onSurfaceVariant.withValues(
-                          alpha: 0.7,
-                        ),
+                      title,
+                      style: context.text.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isDanger
+                            ? Colors.redAccent
+                            : context.colors.onSurface,
                       ),
                     ),
-                ],
+                    if (subtitle != null)
+                      Text(
+                        subtitle!,
+                        style: context.text.labelSmall?.copyWith(
+                          color: context.colors.onSurfaceVariant.withValues(
+                            alpha: 0.7,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            if (trailing != null) trailing!,
-            if (onTap != null && trailing == null)
-              Icon(
-                Icons.chevron_right_rounded,
-                color: context.colors.onSurfaceVariant.withValues(alpha: 0.3),
-              ),
-          ],
+              if (trailing != null) trailing!,
+              if (onTap != null && trailing == null)
+                Icon(
+                  Icons.chevron_right_rounded,
+                  color: context.colors.onSurfaceVariant.withValues(alpha: 0.3),
+                ),
+            ],
+          ),
         ),
       ),
     );

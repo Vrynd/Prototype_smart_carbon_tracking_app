@@ -144,12 +144,12 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             AppSpacing.vGap24,
 
-            AppSettingGroup(
+            AppTileGroup(
               title: 'Personalization',
               variant: GroupVariant.modern,
               backgroundColor: context.colors.primaryContainer,
               children: [
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedGlobe,
                   title: 'Language',
                   variant: TileVariant.modern,
@@ -158,7 +158,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   valueColor: context.colors.primary,
                   onTap: _showLanguage,
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedPaintBoard,
                   title: 'Theme Mode',
                   variant: TileVariant.modern,
@@ -167,7 +167,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   valueColor: context.colors.primary,
                   onTap: _showThemeMode,
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedNotification03,
                   title: 'Notifications',
                   variant: TileVariant.modern,
@@ -180,12 +180,12 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             AppSpacing.vGap16,
 
-            AppSettingGroup(
+            AppTileGroup(
               title: 'Account & Security',
               variant: GroupVariant.modern,
               backgroundColor: context.colors.secondaryContainer,
               children: [
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedPasswordValidation,
                   title: 'Change Password',
                   variant: TileVariant.modern,
@@ -194,7 +194,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     context.push('/settings/change-password');
                   },
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedShield01,
                   title: 'Privacy Settings',
                   variant: TileVariant.modern,
@@ -207,30 +207,30 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             AppSpacing.vGap16,
 
-            AppSettingGroup(
+            AppTileGroup(
               title: 'Support',
               variant: GroupVariant.modern,
               backgroundColor: context.colors.tertiaryContainer,
               children: [
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedInformationCircle,
                   title: 'About App',
                   variant: TileVariant.modern,
                   iconColor: Colors.purple,
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedHelpCircle,
                   title: 'Help Center',
                   variant: TileVariant.modern,
                   iconColor: Colors.teal,
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedBug01,
                   title: 'Report Bug',
                   variant: TileVariant.modern,
                   iconColor: Colors.redAccent,
                 ),
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedSoftwareLicense,
                   title: 'App Version',
                   variant: TileVariant.modern,
@@ -242,12 +242,12 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             AppSpacing.vGap16,
 
-            AppSettingGroup(
+            AppTileGroup(
               title: 'Session',
               variant: GroupVariant.modern,
               backgroundColor: context.colors.errorContainer,
               children: [
-                AppSettingTile(
+                AppTile(
                   icon: HugeIcons.strokeRoundedLogout03,
                   title: 'Sign Out',
                   variant: TileVariant.modern,

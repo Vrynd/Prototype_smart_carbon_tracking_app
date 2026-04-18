@@ -53,7 +53,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         child: AppContainer(
                           borderRadius: 12,
                           padding: EdgeInsets.zero,
-                          child: AppSettingTile(
+                          child: AppTile(
                             variant: TileVariant.classic,
                             icon: HugeIcons.strokeRoundedAnalytics01,
                             title: 'Last Month',
@@ -68,7 +68,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         child: AppContainer(
                           borderRadius: 12,
                           padding: EdgeInsets.zero,
-                          child: AppSettingTile(
+                          child: AppTile(
                             variant: TileVariant.classic,
                             icon: HugeIcons.strokeRoundedCalendar03,
                             title: 'Daily Avg',

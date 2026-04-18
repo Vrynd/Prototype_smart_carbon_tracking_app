@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_carbon_tracking/core/themes/app_spacing.dart';
-import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
-import 'package:smart_carbon_tracking/core/widgets/dashed_divider.dart';
-import 'package:smart_carbon_tracking/core/widgets/title_action.dart';
+import 'package:smart_carbon_tracking/core/core.dart';
 import 'package:smart_carbon_tracking/features/settings/controllers/privacy_settings_controller.dart';
 import 'package:smart_carbon_tracking/features/settings/presentation/widgets/account_privacy.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_setting_group.dart';
-import 'package:smart_carbon_tracking/core/widgets/app_setting_tile.dart';
 
 class PrivacySettingsForm extends StatelessWidget {
   const PrivacySettingsForm({super.key});
@@ -63,10 +58,10 @@ class PrivacySettingsForm extends StatelessWidget {
               ),
             ),
             AppSpacing.vGap16,
-            AppSettingGroup(
+            AppTileGroup(
               variant: GroupVariant.classic,
               children: [
-                AppSettingTile(
+                AppTile(
                   title: 'Show Activity',
                   variant: TileVariant.classic,
                   subtitle: 'Let others see your carbon reduction posts.',
@@ -79,7 +74,7 @@ class PrivacySettingsForm extends StatelessWidget {
                   ),
                 ),
                 const DashedDivider(height: 1),
-                AppSettingTile(
+                AppTile(
                   title: 'Marketing Emails',
                   variant: TileVariant.classic,
                   subtitle: 'Receive newsletters and eco-tips.',
@@ -104,10 +99,10 @@ class PrivacySettingsForm extends StatelessWidget {
               ),
             ),
             AppSpacing.vGap16,
-            AppSettingGroup(
+            AppTileGroup(
               variant: GroupVariant.classic,
               children: [
-                AppSettingTile(
+                AppTile(
                   title: 'Download My Data',
                   variant: TileVariant.classic,
                   subtitle: 'Export tracking data to PDF/CSV.',
@@ -116,7 +111,7 @@ class PrivacySettingsForm extends StatelessWidget {
                   onTap: () {},
                 ),
                 const DashedDivider(height: 1),
-                AppSettingTile(
+                AppTile(
                   title: 'Clear History',
                   variant: TileVariant.classic,
                   subtitle: 'Permanently remove activity history.',

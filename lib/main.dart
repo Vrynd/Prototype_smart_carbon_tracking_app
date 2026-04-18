@@ -7,6 +7,7 @@ import 'package:smart_carbon_tracking/features/home/controllers/home_controller.
 import 'package:smart_carbon_tracking/features/home/controllers/recent_activity_controller.dart';
 import 'package:smart_carbon_tracking/features/navigation/controllers/bottom_bar_controller.dart';
 import 'package:smart_carbon_tracking/features/scan/controllers/scan_controller.dart';
+import 'package:smart_carbon_tracking/features/statistic/controllers/statistic_controller.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -16,6 +17,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => HomeController()),
       ChangeNotifierProvider(create: (_) => RecentActivityController()),
       ChangeNotifierProvider(create: (_) => HistoryController()),
+      ChangeNotifierProvider(create: (_) => StatisticController()),
     ],
     child: const MyApp(),
   ));

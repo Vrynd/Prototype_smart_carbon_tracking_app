@@ -7,6 +7,7 @@ import 'package:smart_carbon_tracking/core/core.dart';
 import 'package:smart_carbon_tracking/features/history/presentation/screens/history_screen.dart';
 import 'package:smart_carbon_tracking/features/home/home.dart';
 import 'package:smart_carbon_tracking/features/navigation/navigation.dart';
+import 'package:smart_carbon_tracking/features/statistic/presentation/screens/statistic_screen.dart';
 import 'package:smart_carbon_tracking/features/settings/settings.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             index: nav.selectedIndex,
             children: [
               const HomeScreen(),
-              const PlaceholderNav(title: 'Statistic'),
+              const StatisticScreen(),
               const HistoryScreen(),
               const SettingScreen(),
             ],

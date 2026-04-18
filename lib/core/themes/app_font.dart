@@ -83,7 +83,7 @@ class MyFont {
   static TextStyle bodyMedium = _baseStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    height: 1.5,
+    height: 1.4,
     letterSpacing: 0.15,
   );
 
@@ -91,7 +91,7 @@ class MyFont {
   static TextStyle bodySmall = _baseStyle.copyWith(
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    height: 1.45,
+    height: 1.3,
     letterSpacing: 0.3,
   );
 

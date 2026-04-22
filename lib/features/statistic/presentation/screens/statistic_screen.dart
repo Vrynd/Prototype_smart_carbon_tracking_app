@@ -82,28 +82,25 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   ),
                 AppSpacing.vGap24,
 
-                TitleAction(
+                TitleAction.standard(
                   title: 'Category Breakdown',
-                  subTitle: 'Emission distribution by your activity types',
-                  actionType: ActionType.none,
+                  subtitle: 'Emission distribution by your activity types',
                 ),
                 AppSpacing.vGap12,
                 CarbonEmission(breakdowns: controller.breakdowns),
                 AppSpacing.vGap32,
 
-                TitleAction(
+                TitleAction.standard(
                   title: 'Carbon Activity',
-                  subTitle: 'Daily emission patterns throughout the year',
-                  actionType: ActionType.none,
+                  subtitle: 'Daily emission patterns throughout the year',
                 ),
                 AppSpacing.vGap12,
                 CarbonActivityChart(points: controller.activityPoints),
                 AppSpacing.vGap24,
 
-                TitleAction(
+                TitleAction.standard(
                   title: 'Impact Summary',
-                  subTitle: 'The environmental effect of your efforts',
-                  actionType: ActionType.none,
+                  subtitle: 'The environmental effect of your efforts',
                 ),
                 AppSpacing.vGap12,
                 SustainabilityImpact(impacts: controller.impacts),

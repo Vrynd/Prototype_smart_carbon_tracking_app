@@ -74,10 +74,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TitleAction(
+                  child: TitleAction.standard(
                     title: 'Recent Scans',
-                    subTitle: 'A detailed log of your carbon footprint and tracked activities',
-                    actionType: ActionType.none,
+                    subtitle: 'A detailed log of your carbon footprint and tracked activities',
                   ),
                 ),
                 AppSpacing.vGap12,

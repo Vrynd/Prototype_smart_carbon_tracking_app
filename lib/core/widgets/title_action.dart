@@ -2,131 +2,153 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:smart_carbon_tracking/core/themes/app_theme.dart';
 
-enum ActionType { elevated, text, dots, none }
+enum ActionType { standard, button, text }
 
 class TitleAction extends StatelessWidget {
   final String title;
-  final String? subTitle;
+  final String? subtitle;
   final TextStyle? titleStyle;
-  final VoidCallback? onPressed;
-  final dynamic iconAction;
-  final bool showAction;
-  final ActionType actionType;
-  final int dotCount;
-  final int dotIndex;
+  final String? label;
+  final VoidCallback? onTap;
+  final dynamic icon;
+  final ActionType variant;
 
-  const TitleAction({
+  const TitleAction._({
     super.key,
     required this.title,
-    this.subTitle,
+    this.subtitle,
     this.titleStyle,
-    this.onPressed,
-    this.iconAction,
-    this.showAction = true,
-    this.actionType = ActionType.elevated,
-    this.dotCount = 3,
-    this.dotIndex = 0,
+    this.label,
+    this.onTap,
+    this.icon,
+    this.variant = ActionType.standard,
   });
+
+  factory TitleAction.standard({
+    Key? key,
+    required String title,
+    String? subtitle,
+    TextStyle? titleStyle,
+  }) {
+    return TitleAction._(
+      key: key,
+      title: title,
+      subtitle: subtitle,
+      titleStyle: titleStyle,
+      variant: ActionType.standard,
+    );
+  }
+
+  factory TitleAction.button({
+    Key? key,
+    required String title,
+    String? subtitle,
+    dynamic icon,
+    VoidCallback? onTap,
+    TextStyle? titleStyle,
+  }) {
+    return TitleAction._(
+      key: key,
+      title: title,
+      subtitle: subtitle,
+      icon: icon,
+      onTap: onTap,
+      titleStyle: titleStyle,
+      variant: ActionType.button,
+    );
+  }
+
+  factory TitleAction.text({
+    Key? key,
+    required String title,
+    required String label,
+    VoidCallback? onTap,
+    String? subtitle,
+    TextStyle? titleStyle,
+  }) {
+    return TitleAction._(
+      key: key,
+      title: title,
+      subtitle: subtitle,
+      label: label,
+      onTap: onTap,
+      titleStyle: titleStyle,
+      variant: ActionType.text,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget? actionWidget;
-
-    if (showAction) {
-      switch (actionType) {
-        case ActionType.dots:
-          actionWidget = Row(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(dotCount, (index) {
-              final bool isActive = index == dotIndex;
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.only(left: 4),
-                height: 6,
-                width: isActive ? 20 : 6,
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? context.colors.primary
-                      : context.colors.primary.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              );
-            }),
-          );
-          break;
-
-        case ActionType.elevated:
-          actionWidget = ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: context.colors.primary,
-              minimumSize: const Size(0, 36),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            ),
-            onPressed: onPressed,
-            label: iconAction is IconData
-                ? Icon(
-                    iconAction,
-                    color: context.colors.onPrimary,
-                    size: 20,
-                  )
-                : HugeIcon(
-                    icon: iconAction ?? HugeIcons.strokeRoundedArrowRight01,
-                    color: context.colors.onPrimary,
-                    size: 24,
-                  ),
-          );
-          break;
-
-        case ActionType.text:
-          actionWidget = TextButton(
-            onPressed: onPressed,
-            child: Text(
-              "See All",
-              style: context.text.bodyMedium?.copyWith(
-                color: context.colors.primary,
-              ),
-            ),
-          );
-          break;
-
-        case ActionType.none:
-          actionWidget = null;
-          break;
-      }
-    }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
+      children: [_buildTitle(context), _buildAction(context)],
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: titleStyle ??
-                  context.text.titleLarge?.copyWith(
-                    color: context.colors.onSurfaceVariant,
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
-            if (subTitle != null && subTitle!.isNotEmpty) ...[
-              const SizedBox(height: 5),
-              Text(
-                subTitle!,
-                style: context.text.titleSmall?.copyWith(
-                  color: context.colors.outline.withValues(alpha: 0.8),
-                ),
+        Text(
+          title,
+          style:
+              titleStyle ??
+              context.text.titleLarge?.copyWith(
+                color: context.colors.onSurfaceVariant,
+                fontWeight: FontWeight.w700,
               ),
-            ],
-          ],
         ),
-        if (actionWidget != null) actionWidget,
+        if (subtitle != null && subtitle!.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            subtitle!,
+            style: context.text.titleSmall?.copyWith(
+              color: context.colors.outline.withValues(alpha: 0.8),
+            ),
+          ),
+        ],
       ],
+    );
+  }
+
+  Widget _buildAction(BuildContext context) {
+    return switch (variant) {
+      ActionType.button => _buildIconButton(context),
+      ActionType.text => _buildTextButton(context),
+      _ => const SizedBox.shrink(),
+    };
+  }
+
+  Widget _buildIconButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: context.colors.primary,
+        minimumSize: const Size(0, 36),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      ),
+      child: HugeIcon(
+        icon: icon ?? HugeIcons.strokeRoundedArrowRight01,
+        color: context.colors.onPrimary,
+        size: 24,
+      ),
+    );
+  }
+
+  Widget _buildTextButton(BuildContext context) {
+    return TextButton(
+      onPressed: onTap,
+      child: Text(
+        label ?? "See All",
+        style: context.text.bodyMedium?.copyWith(
+          color: context.colors.primary,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }

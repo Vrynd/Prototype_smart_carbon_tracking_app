@@ -15,9 +15,8 @@ class PrivacySettingsForm extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleAction(
+            TitleAction.standard(
               title: 'Visibility & Profile',
-              actionType: ActionType.none,
               titleStyle: context.text.titleSmall?.copyWith(
                 color: context.colors.outline,
                 fontWeight: FontWeight.w600,
@@ -49,9 +48,8 @@ class PrivacySettingsForm extends StatelessWidget {
             ),
             AppSpacing.vGap24,
 
-            TitleAction(
+            TitleAction.standard(
               title: 'Notifications',
-              actionType: ActionType.none,
               titleStyle: context.text.titleSmall?.copyWith(
                 color: context.colors.outline,
                 fontWeight: FontWeight.w600,
@@ -90,9 +88,8 @@ class PrivacySettingsForm extends StatelessWidget {
             ),
             AppSpacing.vGap24,
 
-            TitleAction(
+            TitleAction.standard(
               title: 'Data & Security',
-              actionType: ActionType.none,
               titleStyle: context.text.titleSmall?.copyWith(
                 color: context.colors.outline,
                 fontWeight: FontWeight.w600,

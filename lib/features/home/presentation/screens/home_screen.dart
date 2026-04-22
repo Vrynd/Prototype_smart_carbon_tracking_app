@@ -49,11 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TitleAction(
+                  child: TitleAction.button(
                     title: 'Recent Activity',
-                    iconAction: HugeIcons.strokeRoundedArrowRight02,
-                    actionType: ActionType.elevated,
-                    onPressed: () {
+                    icon: HugeIcons.strokeRoundedArrowRight02,
+                    onTap: () {
                       context.push('/home/recent-activity');
                     },
                   ),
@@ -71,10 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TitleAction(
+                  child: TitleAction.standard(
                     title: 'Rekomendasi',
-                    actionType: ActionType.dots,
-                    dotCount: 4,
                   ),
                 ),
                 AppSpacing.vGap10,
